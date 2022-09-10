@@ -4,16 +4,14 @@ import { Col, Row, Typography } from "antd";
 
 const { Title } = Typography;
 
-const LineChart = ({ coinHistory, currentPrice, coinName, timePeriod }) => {
+const LineChart = ({ coinHistory, currentPrice, coinName }) => {
   const coinPrice = [];
   const coinTimestamp = [];
 
   for (let i = 0; i < coinHistory?.data?.history?.length; i += 1) {
-    coinPrice.push(coinHistory?.data?.history[i].price);
+    coinPrice.push(coinHistory.data.history[i].price);
     coinTimestamp.push(
-      new Date(
-        parseInt(`${coinHistory?.data?.history[i].timestamp}`)
-      ).toLocaleDateString()
+      new Date(coinHistory.data.history[i].timestamp).toLocaleDateString()
     );
   }
 
@@ -32,12 +30,13 @@ const LineChart = ({ coinHistory, currentPrice, coinName, timePeriod }) => {
 
   const options = {
     scales: {
-      y: { beginAtZero: false },
-      x: {
-        ticks: {
-          maxTicksLimit: +timePeriod.match(/\d+/)[0],
+      yAxes: [
+        {
+          ticks: {
+            beginAtZero: true,
+          },
         },
-      },
+      ],
     },
   };
 
